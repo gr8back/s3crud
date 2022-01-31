@@ -3,36 +3,105 @@
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+#mapid {
+  height: 800px;
+}
+
+#maingrid {
+
+}
+
+.dbpreview {
+  display: grid;
+  padding: 15px;
+  background-color: ;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+
+.cardbody {
+      background-color: lightblue;
+}
+
+#listalbumbutton {
+  margin: 25px;
+}
+
+#albumcss {
+  display: flex;
+  flex-direction: column;
+  overflow:auto;
+  max-height: 500px;
+  color:black;
+  scrollbar-base-color:gold;
+  font-family:sans-serif;
+  padding:10px;
+  padding-top: 35px;
+  width: fit-content;
+}
+
+#viewalbumcss {
+    width: fit-content;
+  display: flex;
+  flex-direction: column;
+  overflow:auto;
+  /*max-height: 300px;*/
+  color:black;
+  scrollbar-base-color:gold;
+  font-family:sans-serif;
+  padding:10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#mynavbar {
+  display: inline;
+}
+
+/*#uploadphoto {*/
+/*  background-color: ;*/
+/*}*/
+
+/*#albumoperations {*/
+/*  background-color: ;*/
+/*}*/
+
+#canvas {
+  position: absolute;
+}
+
+#createalbumstyle {
+  padding: 20px;
+}
+
+body {
+  margin: 100px;
+  background-color: lightyellow;
+}
+
+.list-group-item {
+ cursor: pointer;
 }
