@@ -13,21 +13,14 @@ const axios = require("axios");
 
 function App() {
   const [albumName, setalbumName] = useState("");
-  const [message, setMessage] = useState();
   const [photos, setPhotos] = useState([]);
   const [mylistalbums, setlistAlbums] = useState();
 
-
   const handleChanged = async (e) => {
-    console.log("form changed");
     e.preventDefault();
-    const fileInput = document.querySelector("#grabform");
-    console.log("fileinput " + fileInput.files);
-    console.log("event target files " + e.target.files);
+
     if (e.target.files && albumName) {
       const formData = new FormData();
-
-      console.log("albumname " + albumName);
       const newfilename = albumName + "/" + (await e.target.files[0].name);
 
       formData.set("myfile", newfilename);
@@ -40,69 +33,43 @@ function App() {
       };
       fetch("http://127.0.0.1:8000/tarupload", requestOptions)
         .then((response) => {
-          console.log("Submitted successfully");
           toastr.info("success");
           viewAlbum(albumName);
+          document.getElementById('addfileinput').value= ""
         })
         .catch((error) => console.log("Form submit error", error));
     }
   };
 
   function viewAlbum(albumName) {
-    console.log("broswer view album " + albumName);
     setalbumName(albumName);
-    var albumPhotosKey = encodeURIComponent(albumName) + "/";
 
     axios
       .get("http://127.0.0.1:8000/api/viewalbum/" + albumName)
       .then(function (response) {
-        // handle success
         var mydata = response.data.data;
-        console.log("viewalbum response " + JSON.stringify(response));
-        var myphotos = [];
-        console.log("photos " + JSON.stringify(mydata));
         if (mydata) {
-          var photos = mydata.map((photo) => {
-            var photoKey = photo.Key;
-            var bucketUrl = "";
-            var photoUrl = bucketUrl + encodeURIComponent(photoKey);
-            var myadd = bucketUrl + encodeURIComponent(photoKey);
-            myphotos.push(myadd);
-          });
-
           setPhotos(mydata);
-          if (myphotos) {
-            console.log("photos found");
-          } else {
-            toastr.info("No photos found");
-          }
         } else {
           setPhotos("");
         }
       })
       .catch(function (error) {
-        // handle error
         console.log(error);
       })
-      .then(function (data) {
-        console.log("more stuff here");
-      });
+
   }
 
   function listAlbums() {
     axios
       .get("http://127.0.0.1:8000/api/listalbums")
       .then(function (response) {
-        // handle success
-        console.log("response" + JSON.stringify(response));
         setlistAlbums(response);
       })
       .catch(function (error) {
         console.log("error" + error);
       })
-      .then(function (data) {
-        console.log("successful then");
-      });
+
   }
 
   const createalbum = (e) => {
@@ -115,19 +82,17 @@ function App() {
       axios
         .post("http://localhost:8000/api/createalbum/" + mynewalbumname)
         .then(function (response) {
-          // handle success
           console.log(response);
         })
         .catch(function (error) {
-          // handle error
           console.log(error);
         })
         .then(function (data) {
-          console.log("reached createalbum " + mynewalbumname);
           setTimeout(() => {
             listAlbums();
           }, 2000);
           document.getElementById("createalbumid").value = "";
+          toastr.info("Created New Album")
         });
     }
   };
@@ -141,20 +106,12 @@ function App() {
       axios
         .post("http://localhost:8000/api/deletealbum/" + albumName)
         .then(function (response) {
-          // handle success
           console.log(response);
         })
         .catch(function (error) {
-          // handle error
           console.log(error);
         })
         .then(function (data) {
-          console.log("delete album was called " + albumName);
-          var albumKey = encodeURIComponent(albumName) + "/";
-
-          // var objects = data.Contents.map((object) => {
-          //   return { Key: object.Key };
-          // });
           toastr.info("Successfully deleted album.");
           listAlbums(albumName);
         });
@@ -167,12 +124,9 @@ function App() {
     if (
       window.confirm(
         "Are you sure you want to delete this picture?\nEither OK or Cancel."
-      ) == true
+      ) === true
     ) {
       var photokey3 = photoKey.replace(/%2F/gi, "/");
-      var photokey4 = photokey3.replace("//", "/");
-      console.log("bucket " + photoKey);
-      console.log("photokey 3 and 4 " + photokey3 + " " + photokey4);
 
       fetch(`http://127.0.0.1:8000/api/deletephoto/` + photokey3)
         .then((response) => {
@@ -214,7 +168,7 @@ function App() {
           );
         });
       } else {
-        console.log("no listalbums");
+        toastr.info("No Albums Found");
         myalbums = null;
       }
     }
@@ -226,8 +180,8 @@ function App() {
         decodeURIComponent(photo.substring(photo.lastIndexOf("/") + 1))
       );
       return (
-        <ListGroup.Item key={key}>
-          <Card style={{ width: "18rem" }}>
+        <ListGroup.Item key={key} className={'photolistview'}>
+          <Card style={{ }}>
             <Card.Img variant="top" src={photo} />
             <Card.Body className={"cardbody"}>
               <Card.Title>
@@ -258,7 +212,7 @@ function App() {
       <link href="toastr.min.css" rel="stylesheet" />
       <div style={{ width: "100%" }}>
         <Navbar bg="light" expand="lg" id={"mynavbar"}>
-          <Container fluid>
+          <Container >
             <Navbar.Brand href="#" style={{ fontFamily: "Lato" }}>
               S3 Viewer
             </Navbar.Brand>
@@ -309,7 +263,6 @@ function App() {
                 List Albums
               </Button>
               <div id={"albumcss"}>{myalbums}</div>
-              <h2 style={{ color: "red" }}>{message}</h2>
               <ListGroup>{albums}</ListGroup>
             </div>
 
@@ -328,7 +281,7 @@ function App() {
                   encType="multipart/form-data"
                   onChange={handleChanged}
                 >
-                  <input type="file" name="file" />
+                  <input type="file" name="file" id='addfileinput' accept={'image/*'} />
                 </form>
               </div>
               <br />

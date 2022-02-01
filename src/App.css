@@ -2,52 +2,19 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-#mapid {
-  height: 800px;
-}
-
-#maingrid {
-
-}
 
 .dbpreview {
   display: grid;
   padding: 15px;
-  background-color: ;
   grid-template-columns: 1fr 3fr 1fr;
 }
 
 .cardbody {
-      background-color: lightblue;
+    background-color: lightblue;
 }
 
 #listalbumbutton {
-  margin: 25px;
+  margin-bottom: 25px;
 }
 
 #albumcss {
@@ -68,7 +35,6 @@
   display: flex;
   flex-direction: column;
   overflow:auto;
-  /*max-height: 300px;*/
   color:black;
   scrollbar-base-color:gold;
   font-family:sans-serif;
@@ -79,18 +45,6 @@
 
 #mynavbar {
   display: inline;
-}
-
-/*#uploadphoto {*/
-/*  background-color: ;*/
-/*}*/
-
-/*#albumoperations {*/
-/*  background-color: ;*/
-/*}*/
-
-#canvas {
-  position: absolute;
 }
 
 #createalbumstyle {
@@ -104,4 +58,60 @@ body {
 
 .list-group-item {
  cursor: pointer;
+  width: 20rem;
+}
+
+.photolistview {
+  width: 15rem;
+}
+
+@media only screen and (max-width: 1400px) {
+  .dbpreview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 1em;
+  }
+  #albumcss {
+  display: flex;
+  flex-direction: column;
+  overflow:auto;
+  max-height: 250px;
+  color:black;
+  scrollbar-base-color:gold;
+  font-family:sans-serif;
+  padding:10px;
+  padding-top: 35px;
+
+}
+}
+
+@media only screen and (max-width: 1000px) {
+  .dbpreview {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 1em;
+  }
+  #albumcss {
+  display: flex;
+  flex-direction: column;
+  overflow:auto;
+  max-height: 250px;
+  color:black;
+  scrollbar-base-color:gold;
+  font-family:sans-serif;
+  padding:10px;
+  padding-top: 35px;
+}
+  #viewalbumcss {
+    width: fit-content;
+    /*overflow: hidden;*/
+  display: flex;
+  flex-direction: column;
+  overflow:auto;
+  color:black;
+  scrollbar-base-color:gold;
+  font-family:sans-serif;
+  padding:10px;
+  grid-template-columns: 1fr 1fr;
+}
 }
