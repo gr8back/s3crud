@@ -1,7 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import "./App.css";
 import toastr from "toastr";
-import "./toastr.min.css";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import Card from "react-bootstrap/Card";
@@ -131,8 +130,9 @@ function App() {
       fetch(`http://127.0.0.1:8000/api/deletephoto/` + photokey3)
         .then((response) => {
           toastr.info("Successfully deleted");
-          console.log("Submitted successfully");
-          viewAlbum(albumName);
+          setTimeout(() => {
+            viewAlbum(albumName);
+          }, 2000);
         })
         .catch((error) => console.log("Delete file", error));
     } else {
@@ -275,7 +275,6 @@ function App() {
                   Add a Photo to your Selected Album
                 </Alert>
                 <form
-                  action="http://127.0.0.1:8000/tarupload"
                   id="grabform"
                   method="post"
                   encType="multipart/form-data"

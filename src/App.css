@@ -63,6 +63,7 @@ body {
 
 .photolistview {
   width: 15rem;
+  height: min-content;
 }
 
 @media only screen and (max-width: 1400px) {
